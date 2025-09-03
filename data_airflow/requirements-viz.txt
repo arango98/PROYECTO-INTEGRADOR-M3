@@ -1,0 +1,10 @@
+# Librerías para conectar a Google BigQuery
+google-cloud-bigquery
+db-dtypes
+
+# Librería para manipulación de datos
+pandas
+
+# Librerías para visualización
+matplotlib
+seaborn

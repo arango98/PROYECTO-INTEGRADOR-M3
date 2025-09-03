@@ -1,0 +1,199 @@
+Proyecto Integrador
+Avance 1 
+
+Desarrollo de un pipeline de datos tipo ELT y un data warehouse escalable
+
+Te desempeñas como Ingeniero de Datos en una empresa que se encuentra en proceso de expansión y requiere una solución escalable para integrar y analizar grandes volúmenes de datos procedentes de múltiples fuentes, incluyendo transacciones comerciales, interacciones con clientes y registros de sensores.
+
+Tu rol consiste en diseñar y construir un pipeline de tipo ELT que será desplegado en la infraestructura en la nube de la organización. Deberás integrar datos provenientes de diversas fuentes, transformarlos de forma eficiente y almacenarlos en un Data Warehouse escalable.
+
+Además, serás responsable de la orquestación del pipeline utilizando Apache Airflow, así como de garantizar la calidad y mantenibilidad del código mediante la implementación de pipelines de CI/CD automatizados con GitHub Actions.
+
+Este warehouse escalable,deberá ser capaz de responder a las siguientes preguntas del negocio, que se adjuntan como guía orientativa para el análisis:
+¿Cuál es el precio promedio de los alojamientos por barrio y distrito?
+¿Qué tipo de habitación es el más ofrecido y cuál genera mayor revenue estimado?
+¿Cuáles son los anfitriones con más propiedades listadas y cómo varían sus precios?
+¿Existen diferencias significativas en la disponibilidad anual entre barrios o tipos de alojamiento?
+¿Cómo evoluciona el número de reseñas por mes en los diferentes distritos de la ciudad?
+¿Qué barrios tienen la mayor concentración de alojamientos activos?
+¿Cómo se distribuyen los precios y qué outliers existen?
+¿Qué relación hay entre la disponibilidad anual y la cantidad de reseñas como proxy de ocupación?
+
+DISEÑO DE LA ARQUITECTURA
+
+Paso 1 de 6 - Contexto
+El equipo directivo de la empresa, te ha encomendado diseñar una solución robusta para recopilar y transformar grandes volúmenes de datos, con vistas a optimizar la toma de decisiones estratégicas. En esta etapa inicial, tu rol es sentar las bases de esa solución.
+Como responsable técnico del diseño del pipeline ELT, debes trazar la arquitectura que servirá como columna vertebral del sistema.
+- Analizarás qué fuentes de datos son relevantes a partir de las preguntas clave del negocio y decidirás cómo integrarlas de manera eficiente. 
+- Deberás seleccionar y justificar herramientas en función de criterios de escalabilidad, rendimiento y facilidad de integración. 
+- También serás quien defina las distintas capas del Data Warehouse (raw, staging, core, gold) y su propósito dentro del flujo de datos. Tu diseño será el mapa maestro que guiará al equipo en las etapas posteriores del proyecto.
+
+Paso 2 de 6 - Descripción general del pipeline ELT
+Redacta un documento técnico que describa de forma clara y precisa la arquitectura general del pipeline ELT que será implementado. Incluye:
+- Objetivo del pipeline.
+- Descripción de las etapas ELT (Extract, Load, Transform).
+- Contexto general del proyecto y necesidades que aborda.
+
+Paso 3 de 6 - Diagrama de arquitectura
+Crea un diagrama técnico que represente detalladamente la arquitectura del pipeline. Asegúrate de incluir:
+- Todas las fuentes de datos, diferenciando entre bases de datos, archivos planos, web scraping y llamados a APIs.
+- Herramientas o servicios utilizados en cada etapa (ETL tools, bases de datos, scripts, orquestadores, etc.).
+- El flujo completo de los datos desde la extracción hasta la disponibilidad final en el Data Warehouse o sistema de análisis.
+
+Paso 4 de 6 - Definición de capas del Data Warehouse
+Describe las diferentes capas que componen el Data Warehouse. Explica el propósito de cada una:
+- Raw / Staging layer: almacenamiento de datos sin transformar.
+- Capa intermedia / transformada: datos limpios y estructurados.
+- Capa de consumo / modelo de negocio: datasets listos para análisis y visualización.
+Incluye el rol que cumple cada capa en el procesamiento y preparación de los datos.
+
+Paso 5 de 6 - Justificación de herramientas y tecnologías
+Justifica la elección de cada herramienta y tecnología usada en el pipeline. Evalúa y explica por qué fueron seleccionadas considerando:
+- Escalabilidad (¿puede crecer con la demanda?).
+- Facilidad de integración con otras herramientas.
+- Rendimiento y eficiencia.
+- Adecuación al problema o contexto específico.
+
+Paso 6 de 6 - Identificación y análisis de fuentes de datos
+Relaciona las preguntas de negocio clave que se buscan responder con el pipeline, y a partir de ellas:
+- Identifica las fuentes de datos disponibles (internas y externas).
+- Evalúa su relevancia y valor analítico.
+- Asegura que permiten responder las preguntas planteadas con solidez y confiabilidad.
+
+Con el diseño arquitectónico ya aprobado, el siguiente paso para consolidar el proyecto es implementar los mecanismos de recolección de datos. En tu rol como Ingeniero de Datos, debes desarrollar las soluciones que permitirán capturar información proveniente de diversas fuentes: APIs públicas, scraping de sitios web, y otras fuentes definidas en el diseño anterior.
+
+Situación
+Tu tarea será crear scripts eficientes y confiables en Python para automatizar la extracción de datos.
+Deberás contenerizar este proceso con Docker para facilitar su despliegue en la infraestructura en la nube de la organización. También tendrás la responsabilidad de garantizar que los datos recolectados se almacenen de forma estructurada y coherente en la capa raw, preservando su valor analítico para transformaciones futuras.
+
+El éxito de esta fase sentará las bases para una integración de datos confiable, reutilizable y alineada con los objetivos de negocio.
+
+
+1. Desarrollo del script de extracción de datos
+Implementa un script en Python que obtenga datos desde:
+- APIs públicas o privadas (utilizando librerías como requests, httpx o aiohttp).
+- Sitios web mediante técnicas de web scraping (con herramientas como BeautifulSoup, Selenium, Scrapy).
+
+Asegúrate de que el script:
+- Permita parametrizar endpoints o URLs.
+- Tenga manejo de errores y control de fallos.
+- Guarde los datos de forma local o en memoria en estructuras como dict, DataFrame, etc.
+
+2. Contenerización del script con Docker
+Crea un Dockerfile que:
+- Use una imagen base liviana (por ejemplo, python:3.10-slim).
+- Instale todas las dependencias necesarias desde requirements.txt.
+- Copie el script al contenedor y defina un ENTRYPOINT claro.
+- Documenta el Dockerfile con comentarios explicativos.
+- Asegúrate de que la imagen se construya correctamente con docker build y funcione con docker run.
+
+3. Integración de datos en la capa Raw
+Diseña el proceso para que los datos extraídos desde distintas fuentes (API, scraping, archivos planos, etc.) se integren:
+- En un único repositorio de almacenamiento temporal (ej: carpeta raw local, bucket en la nube, base de datos).
+- Respetando un esquema común de nombres, formatos y estructura.
+- Aplica transformaciones mínimas si es necesario para lograr coherencia entre fuentes. 
+
+4. Verificación de carga en almacenamiento temporal
+Implementa una rutina de validación que:
+- Verifique que los archivos o registros se almacenan correctamente.
+- Asegure la existencia, el tamaño mínimo y la integridad de cada archivo.
+- Genere logs o alertas ante errores de carga o duplicaciones.
+
+5. Estandarización del formato de los datos
+Convierte y estructura los datos extraídos en formatos adecuados, como:
+- CSV para datos tabulares simples.
+- JSON para estructuras jerárquicas o semiestructuradas.
+- Nombra los archivos según convención clara (por ejemplo: fuente_fecha.json).
+- Asegura codificación UTF-8 y delimitadores estándar para evitar errores posteriores.
+
+
+6. Validación de calidad de los datos
+Crea una rutina o script para validar:
+- Calidad: valores nulos, tipos correctos, unicidad de claves.
+- Completitud: que todos los campos esperados estén presentes.
+- Coherencia: que los datos sean consistentes entre sí (por ejemplo, fechas válidas, números positivos).
+- Documenta los criterios de validación y genera reportes automáticos.
+
+
+7. Publicación de la imagen Docker
+- Sube la imagen a un entorno de nube (ej: Docker Hub, GitHub Container Registry, Google Artifact Registry).
+- Define nombre, versión y tags.
+- Asegura que la imagen sea fácilmente accesible y reutilizable por otros miembros del equipo o por el orquestador del pipeline (ej: Airflow, Prefect).
+- Documenta cómo utilizarla en la ejecución del pipeline (comandos de docker pull, docker run, etc.).
+
+Luego de asegurar la correcta recolección de datos, la empresa necesita transformar esa información 
+en conocimiento accionable. Tu responsabilidad como Ingeniero de Datos se enfoca ahora en construir
+ los procesos que convertirán los datos crudos en activos útiles para el análisis.
+Implementarás transformaciones complejas mediante scripts en SQL o PySpark, integrando datos estructurados
+ y no estructurados. Estas transformaciones estarán guiadas por las preguntas de negocio definidas
+  en la etapa de diseño, y su objetivo será estructurar los datos para alimentar las capas analítica 
+  y de consumo del Data Warehouse.
+Esta fase es crítica: el valor de los datos se revela aquí, cuando se convierten en respuestas a preguntas
+ estratégicas. Serás quien valide que cada capa del Data Warehouse almacene datos limpios, consistentes 
+ y correctamente transformados para su análisis posterior.
+
+Situación
+Tu rol como Ingeniero de Datos se centra en transformarlos en información útil para el negocio.
+→ Implementarás procesos con SQL o PySpark que integran y estructuran datos, guiados por preguntas estratégicas.
+→ Tu objetivo es asegurar que el Data Warehouse contenga datos limpios, consistentes y listos para el análisis.
+
+Conozcamos la consigna del 3er.Avance.
+1. Scripts en SQL/Pyspark que realicen las transformaciones necesarias según las preguntas de negocio planteadas.
+2. Transformaciones que permitan integrar datos no estructurados con los datos estructurados existentes.
+3. Validación de que las transformaciones se ejecutan correctamente y los datos se almacenan en las capas
+ correspondientes del Data Warehouse.
+
+ Para ello,deberemos estar segusros de tener los conocimientos necesarios:
+- Fundamentos de arquitectura de datos 
+- Data Warehousing
+- Procesos de ETL, ELT, ETLT de datos: extract, transform and load 
+- Optimización de flujos ETL/ELT, ETL
+
+y contar con el Tech Stack necesario
+- Snowflake
+- Python
+- SQL
+- Docker
+
+El pipeline de datos ya cuenta con un diseño sólido, extracción automatizada y transformaciones validadas.
+Sin embargo, para que el sistema funcione de forma autónoma, confiable y mantenible,
+debes avanzar hacia su orquestación y despliegue continuo.
+En esta última etapa del proyecto, tu rol como Ingeniero de Datos cobra una dimensión más integral:
+debes garantizar la ejecución fluida del pipeline en producción.
+Para ello, configurarás Apache Airflow para definir y ejecutar los DAGs que representen todo el proceso ELT
+de forma modular y controlada.
+Además, implementarás flujos de integración y entrega continua (CI/CD) con GitHub Actions, que aseguren
+que cada cambio en el código sea probado automáticamente antes de ser desplegado.
+Serás responsable de gestionar dependencias, validar la idempotencia de las tareas y monitorear el sistema.
+Esta orquestación automatizada convertirá tu pipeline en un sistema de procesamiento de datos robusto,
+listo para escalar junto con el crecimiento de la organización.
+Conozcamos las consignas del Avance 4 de nuestro proyecto integrador:
+
+1. Configuración de Apache Airflow mediante Docker Compose y Dockerfile. 
+Seguida de la construcción de una imagen contenedorizada lista para ser desplegada en la nube.
+
+2. Definición de DAGs (Directed Acyclic Graphs) en Airflow para orquestar de manera estructurada
+todo el proceso de ingesta.  
+Transformación y carga de datos.
+
+3. Implementación de una gestión robusta de dependencias entre tareas
+Asegurando la idempotencia y un adecuado manejo de errores en el flujo de trabajo.
+
+4. Configuración de flujos CI/CD con GitHub Actions
+Para ejecutar automáticamente pruebas en cada push o pull request, asegurando la calidad continua del código.
+
+5. Conocimientos necesarios: Orquestación con Airflow
+
+6. Tech Stack necesario (sugerido, no excluyente):
+Airflow
+Docker
+Python
+GiHub Actions
+SQL
+Snowflake
+
+7. EXTRA CREDIT!
+a. Realización de pruebas que verifiquen la ejecución completa del pipeline,
+desde la ingesta de datos hasta su almacenamiento final en el Data Warehouse.
+b. Ejecución de pruebas que validen el correcto funcionamiento del pipeline,
+incluyendo validaciones de integridad, calidad de datos y desempeño del sistema.

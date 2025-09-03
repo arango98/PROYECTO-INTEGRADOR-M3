@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pipeline de Análisis de Ventas en GCP</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Fondo oscuro */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 2rem;
+            color: #e2e8f0;
+        }
+        .container {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .diagram-container {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+        }
+        .flow-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        .component {
+            background-color: #2d3748;
+            border: 2px solid #4a5568;
+            border-radius: 0.75rem;
+            padding: 1.25rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+            width: 180px;
+            min-height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-weight: 600;
+            color: #e2e8f0;
+            transition: transform 0.2s ease-in-out;
+        }
+        .component:hover {
+            transform: translateY(-5px);
+        }
+        .source-group, .consumption-group {
+            border: 2px dashed #4a5568;
+            background-color: #28303f;
+            border-radius: 0.75rem;
+            padding: 1.5rem 1rem;
+            gap: 1rem;
+        }
+        .arrow {
+            font-size: 3rem;
+            color: #63b3ed;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            height: 100%;
+        }
+        .label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #90cdf4;
+            margin-top: -0.5rem;
+            margin-bottom: -0.5rem;
+        }
+        img {
+            filter: invert(1);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="font-bold text-3xl text-gray-100">Pipeline de Análisis de Ventas en GCP</h1>
+        <p class="text-md text-gray-400 mt-2">Diagrama de arquitectura ELT para el proyecto de ventas</p>
+    </div>
+
+    <div class="diagram-container">
+        <div class="flow-group">
+            <h3 class="font-bold text-xl text-gray-300">Fuentes</h3>
+            <div class="source-group flex flex-col">
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=t74tH9A4K96L&format=png" alt="CSV" class="h-8 w-8 mb-2">
+                    Archivos de Venta (CSV)
+                </div>
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=88310&format=png" alt="PostgreSQL" class="h-8 w-8 mb-2">
+                    Base de Datos de Clientes
+                </div>
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=v9pI1485Q9V4&format=png" alt="API" class="h-8 w-8 mb-2">
+                    API de Publicidad
+                </div>
+            </div>
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-group">
+            <div class="label">Extract & Load</div>
+            <div class="component">
+                <img src="https://img.icons8.com/?size=48&id=WHRLQdbEXQ16&format=png" alt="GCS" class="h-8 w-8 mb-2">
+                Google Cloud Storage
+            </div>
+        </div>
+
+        <div class="arrow">→</div>
+
+        <div class="flow-group">
+            <div class="label">Transform</div>
+            <div class="component">
+                <img src="https://static.wikia.nocookie.net/logopedia/images/7/74/BigQuery_icon_1.svg/revision/latest?cb=20250205144427" alt="BigQuery" class="h-8 w-8 mb-2">
+                Google BigQuery
+            </div>
+        </div>
+        
+        <div class="arrow">→</div>
+
+        <div class="flow-group">
+            <h3 class="font-bold text-xl text-gray-300">Consumo</h3>
+            <div class="consumption-group flex flex-col">
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=Vd1rA3Jq8g6M&format=png" alt="Looker Studio" class="h-8 w-8 mb-2">
+                    Panel de Ventas (BI)
+                </div>
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=yS4a87N1jU9e&format=png" alt="SQL" class="h-8 w-8 mb-2">
+                    Consultas Ad-Hoc (SQL)
+                </div>
+                <div class="component">
+                    <img src="https://img.icons8.com/?size=48&id=q28W0sK8Sg3M&format=png" alt="AI" class="h-8 w-8 mb-2">
+                    Modelo de Predicción
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

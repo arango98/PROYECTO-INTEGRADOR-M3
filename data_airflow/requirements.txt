@@ -1,0 +1,5 @@
+requests==2.31.0
+urllib3==2.2.1
+google-cloud-storage==2.14.0
+apache-airflow-providers-docker==2.8.0
+apache-airflow==3.0.6
